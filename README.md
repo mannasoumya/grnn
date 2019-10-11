@@ -17,9 +17,13 @@ git clone https://github.com/mannasoumya/grnn.git
 ### Step 2: Import module and use as follows 
 Or you can use it in your own code <br>
 ```javascript
-const grnn_pred=require('./grnn'); // assuming cloned repo in cwd; otherwise use appropriate path to grnn.js
-let train_x=[[1,2],[5,6]],train_y=[3,7],input=[5.5,6.5],sigma=0.47,normalize=true;
-let prediction=grnn_pred(train_x,train_y,input,sigma,normalize);
-console.log("Predicted Value :\t"+prediction);
+const grnn_pred = require("./grnn"); // assuming cloned repo in cwd; otherwise use appropriate path to grnn.js
+let train_x = [[1, 2], [5, 6]],
+  train_y = [3, 7],
+  input = [5.5, 6.5],
+  sigma = 0.47,
+  normalize = true;
+let prediction = grnn_pred(train_x, train_y, input, sigma, normalize);
+console.log("Predicted Value :\t" + prediction);
 ``` 
 <h3> Please contribute and raise issues. Pull requests are welcome. </h3>
