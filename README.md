@@ -20,17 +20,17 @@ git clone https://github.com/mannasoumya/grnn.git
 Or you can use it in your own code <br>
 ```javascript
 const grnn = require("./grnn"); // assuming cloned repo in cwd; otherwise use appropriate path to grnn.js
-let train_x = [[1, 2], [5, 6], [10, 11]],
+const train_x = [[1, 2], [5, 6], [10, 11]],
   train_y = [3, 7, 12],
   input = [5.5, 6.5],
   sigma = 2.16,
   normalize = true;
-  let test_x = [[8.8, 9.8], [13, 14]];
-let test_y = [10.8, 15];
-let gr = new grnn(train_x, train_y,sigma,normalize,test_x,test_y);
-let pred=gr.predict(input);
-let mse=gr.mse();
-console.log("Prediction:  "+pred);
-console.log("MSE: "+mse);
+const test_x = [[8.8, 9.8], [13, 14]];
+const test_y = [10.8, 15];
+const gr = new grnn(train_x, train_y, sigma, normalize, test_x, test_y);
+const pred = gr.predict(input);
+const mse = gr.mse();
+console.log("Prediction:  " + pred);
+console.log("MSE: " + mse);
 ``` 
 <h3> Please contribute and raise issues. Pull requests are welcome. </h3>
