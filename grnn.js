@@ -18,7 +18,9 @@ class GRNN {
     this.test_x = test_x;
     this.test_y = test_y;
     this.ypred = [];
+    this.optimal_sigma = undefined;
   }
+  // function to calculate Radial Basis Function Kernel
   rbf(diff, sig) {
     if (sig != undefined && sig != 0) {
       let coeff = (-0.5 * diff * diff) / (sig * sig);
@@ -44,7 +46,7 @@ class GRNN {
     }
   }
   //function to predict output given training input using GRNN
-  prediction(train_x, train_y, input) {
+  prediction(train_x, train_y, input, sig) {
     this.checkNormal(this.normalize, this.train_x);
     if (train_x.length != train_y.length) {
       throw new Error("Shape mismatch");
@@ -52,8 +54,8 @@ class GRNN {
       let num = 0,
         den = 0,
         sig_ma = Math.sqrt(2);
-      if (this.sigma != undefined) {
-        sig_ma = this.sigma;
+      if (sig != undefined) {
+        sig_ma = sig;
       }
       for (let i = 0; i < train_x.length; i++) {
         let sum = 0;
@@ -67,9 +69,10 @@ class GRNN {
       return num / den;
     }
   }
+
   //wrapper like function over prediction(...) function
   predict(input) {
-    return this.prediction(this.train_x, this.train_y, input);
+    return this.prediction(this.train_x, this.train_y, input, this.sigma);
   }
   //function to calculate mean square error on test data
   mse() {
@@ -82,7 +85,36 @@ class GRNN {
       let err = this.test_y[i] - this.ypred[i];
       sum = sum + err * err;
     }
+    this.find_optimal_sigma();
     return sum / this.ypred.length;
+  }
+  //below 3 functions are wrapper like functions to calculate optimal sigma
+  predict_for_optimal(input, sig) {
+    return this.prediction(this.train_x, this.train_y, input, sig);
+  }
+  mse_opt(sig) {
+    this.checkNormal(this.normalize, this.test_x);
+    let sum = 0;
+    let ypred_opt = [];
+    for (let x of this.test_x) {
+      ypred_opt.push(this.predict_for_optimal(x, sig));
+    }
+    for (let i = 0; i < ypred_opt.length; i++) {
+      let err = this.test_y[i] - ypred_opt[i];
+      sum = sum + err * err;
+    }
+    return sum / ypred_opt.length;
+  }
+  find_optimal_sigma() {
+    let sig_arr = [];
+    for (let sigm_a = 0; sigm_a <= 10; sigm_a += 0.001) {
+      sig_arr.push({
+        sigma: sigm_a,
+        mse: this.mse_opt(sigm_a)
+      });
+    }
+    sig_arr.sort((a, b) => a.mse - b.mse);
+    this.optimal_sigma = sig_arr[0].sigma.toPrecision(4);
   }
 }
 module.exports = GRNN;
