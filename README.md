@@ -5,15 +5,23 @@ This is a NodeJS module to use <b>GRNN</b> to predict given a training data.
 Check out the <b> <a href="https://en.wikipedia.org/wiki/General_regression_neural_network">Wikipedia </a> </b>page to find out more about GRNN or the beginner stuffs <b><a href="https://easyneuralnetwork.blogspot.com/2013/07/grnn-generalized-regression-neural.html">here</a></b>.
 
 ### Input Parameters
+#### <i>Required</i>
 double <b>train_x</b>    : 2d array of n rows(training size) and m columns(features)<br>
 double <b>train_y</b>    : 1d array of size n (actual output correspondng to each training input)<br>
 double <b>test_x</b>    : 2d array of n1 rows(testing size) and m columns(features)<br>
 double <b>test_y</b>    : 1d array of size n (actual output correspondng to each testing input)<br>
 double <b>input</b>      : 1d array of size n (input data whose Y needs to be predicted) <br>
-double <b>sigma</b>      : the value of sigma in the Radial Basis Function (defaults to √2) :: Standard Deviation<br>
+double <b>sigma</b>      : the value of sigma in the Radial Basis Function :: Standard Deviation<br>
 boolean <b>normalize</b> : whether to normalize train_x or not (generally normalization of training samples gives better predictions)<br>
 
-## How to Use ? (Just an example)
+### Functions
+<b>predict(input)</b> - Returns predicted value of given input <br>
+<b>mse()</b> - Returns the Mean Squared Error for the given input <br>
+### Variables
+<b>ypred[]</b> - Array which have the predicted values for test input data <br>
+<b>optimal_sigma</b> - Value of Optimal Sigma ( Minimum MSE ) -- Must be used after calling mse() function 
+
+## How to Use ? (Example)
 ### Step 1 : Clone repository
 git clone https://github.com/mannasoumya/grnn.git
 ### Step 2: Import module and use as follows 
@@ -31,6 +39,8 @@ const gr = new grnn(train_x, train_y, sigma, normalize, test_x, test_y);
 const pred = gr.predict(input);
 const mse = gr.mse();
 console.log("Prediction:  " + pred);
-console.log("MSE: " + mse);
+console.log("MSE:  " + mse);
+console.log("Optimal Value of Sigma:  " + gr.optimal_sigma);
+console.log("Predicted Values against Test:  "+ gr.ypred);
 ``` 
 <h3> Please contribute and raise issues. Pull requests are welcome. </h3>
