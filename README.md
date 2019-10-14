@@ -9,7 +9,7 @@ Check out the <b> <a href="https://en.wikipedia.org/wiki/General_regression_neur
 double <b>train_x</b>    : 2d array of n rows(training size) and m columns(features)<br>
 double <b>train_y</b>    : 1d array of size n (actual output correspondng to each training input)<br>
 double <b>test_x</b>    : 2d array of n1 rows(testing size) and m columns(features)<br>
-double <b>test_y</b>    : 1d array of size n (actual output correspondng to each testing input)<br>
+double <b>test_y</b>    : 1d array of size n1 (actual output correspondng to each testing input)<br>
 double <b>input</b>      : 1d array of size n (input data whose Y needs to be predicted) <br>
 double <b>sigma</b>      : the value of sigma in the Radial Basis Function :: Standard Deviation<br>
 boolean <b>normalize</b> : whether to normalize train_x or not (generally normalization of training samples gives better predictions)<br>
