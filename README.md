@@ -3,7 +3,7 @@
 This is a NodeJS module to use <b>GRNN</b> to predict given a training data.
 
 Check out the <b> <a href="https://en.wikipedia.org/wiki/General_regression_neural_network">Wikipedia </a> </b>page to find out more about GRNN or the beginner stuffs <b><a href="https://easyneuralnetwork.blogspot.com/2013/07/grnn-generalized-regression-neural.html">here</a></b>.
-
+##### (This script has no external dependencies)
 ### Input Parameters
 #### <i>Required</i>
 double <b>train_x</b>    : 2d array of n rows(training size) and m columns(features)<br>
