@@ -1,0 +1,29 @@
+{
+  "name": "grnn",
+  "version": "1.0.1",
+  "description": "Generalized Regression Neural Network",
+  "main": "grnn.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mannasoumya/grnn.git"
+  },
+  "keywords": [
+    "ml",
+    "machine-learning",
+    "ai",
+    "nn",
+    "neural-network",
+    "regression",
+    "ml-model",
+    "artificial-intelligence"
+  ],
+  "author": "Manna Soumya",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mannasoumya/grnn/issues"
+  },
+  "homepage": "https://github.com/mannasoumya/grnn#readme"
+}
