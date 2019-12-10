@@ -2,9 +2,9 @@
 ## Description
 This is a NodeJS module to use <b>GRNN</b> to predict given a training data.
 
-The <b>"npm"</b> package can be found <b><a href="https://www.npmjs.com/package/grnn" target="_blank">here</a></b>.  
+The <b>"npm"</b> package can be found <b><a href="https://www.npmjs.com/package/grnn" target="__blank" rel="noopener noreferrer">here</a></b>.  
 
-Check out the <b> <a href="https://en.wikipedia.org/wiki/General_regression_neural_network" target="_blank">Wikipedia </a> </b>page to find out more about GRNN or the beginner stuffs <b><a href="https://easyneuralnetwork.blogspot.com/2013/07/grnn-generalized-regression-neural.html" target="_blank">here</a></b>.
+Check out the <b> <a href="https://en.wikipedia.org/wiki/General_regression_neural_network" target="__blank" rel="noopener noreferrer">Wikipedia </a> </b>page to find out more about GRNN or the beginner stuffs <b><a href="https://easyneuralnetwork.blogspot.com/2013/07/grnn-generalized-regression-neural.html" target="__blank" rel="noopener noreferrer">here</a></b>.
 ##### (This script has no external dependencies)
 ### Input Parameters
 #### <i>Required</i>
