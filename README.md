@@ -2,6 +2,8 @@
 ## Description
 This is a NodeJS module to use <b>GRNN</b> to predict given a training data.
 
+The <b>"npm"</b> package can be found <b><a href="https://www.npmjs.com/package/grnn">here</a></b>.  
+
 Check out the <b> <a href="https://en.wikipedia.org/wiki/General_regression_neural_network">Wikipedia </a> </b>page to find out more about GRNN or the beginner stuffs <b><a href="https://easyneuralnetwork.blogspot.com/2013/07/grnn-generalized-regression-neural.html">here</a></b>.
 ##### (This script has no external dependencies)
 ### Input Parameters
@@ -23,11 +25,20 @@ boolean <b>normalize</b> : whether to normalize train_x or not (generally normal
 
 ## How to Use ? (Example)
 ### Step 1 : Clone repository
-git clone https://github.com/mannasoumya/grnn.git
+```shell
+> git clone https://github.com/mannasoumya/grnn.git
+```
+#### Or
+
+### Step 1 : Install Via npm
+```shell
+> npm install grnn
+```
 ### Step 2: Import module and use as follows 
 Or you can use it in your own code <br>
 ```javascript
 const grnn = require("./grnn"); // assuming cloned repo in cwd; otherwise use appropriate path to grnn.js
+// const grnn = require("grnn");  -- > if installed via npm
 const train_x = [[1, 2], [5, 6], [10, 11]],
   train_y = [3, 7, 12],
   input = [5.5, 6.5],
