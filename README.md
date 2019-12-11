@@ -55,4 +55,31 @@ console.log("MSE:  " + mse);
 console.log("Optimal Value of Sigma:  " + gr.optimal_sigma);
 console.log("Predicted Values against Test:  "+ gr.ypred);
 ``` 
+### If you are using CSV parser from file to load data
+Here is a snapshot of a <b>sample data</b>.<br><br>
+Note that the <b>Variable to be Predicted</b> must be in the <b><i>"LAST COLUMN"</i></b> of the csv file.<br><br>
+<img src="https://raw.githubusercontent.com/mannasoumya/grnn/master/sample_data_snapshot.PNG"></img>
+<br>
+<br>
+#### Here's a sample code to use the built-in CSV parser
+
+```javascript
+const grnn = require("./grnn"); // assuming cloned repo in cwd; otherwise use appropriate path to grnn.js
+// const grnn = require("grnn");  -- > if installed via npm
+let gr = new grnn(); // initialize constructor with no parameters
+const path="..../data.csv", // path to csv file
+  header=true; // if your data contain headers
+const data = gr.parseCSV(path, header);
+const { train_x, 
+        test_x, 
+        train_y, 
+        test_y } = gr.split_test_train(data); // attribute names are train_x, test_x, train_y, test_y
+gr = new grnn(train_x, train_y, 0.1180, false, test_x, test_y); // initialized with actual parameters
+const mse = gr.mse();
+console.log("MSE:  " + mse);
+console.log("Optimal Value of Sigma:  " + gr.optimal_sigma);
+console.log("Predicted Values against Test:  "+gr.ypred.map(el=>el.toPrecision(4)));
+```
+
+
 <h3> Please contribute and raise issues. Pull requests are welcome. </h3>
