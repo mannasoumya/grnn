@@ -69,7 +69,6 @@ class GRNN {
       return num / den;
     }
   }
-
   //wrapper like function over prediction(...) function
   predict(input) {
     return this.prediction(this.train_x, this.train_y, input, this.sigma);
@@ -115,6 +114,94 @@ class GRNN {
     }
     sig_arr.sort((a, b) => a.mse - b.mse);
     this.optimal_sigma = sig_arr[0].sigma.toPrecision(4);
+  }
+  //function to parse csv given path
+  parseCSV(path, header) {
+    const fs = require("fs");
+    let data_2d = [];
+    let contents = fs.readFileSync(path, "utf8");
+    let rows = contents.split("\n");
+    rows = rows.map(row => row.replace(/\r/g, ""));
+    for (let i = 0; i < rows.length; i++) {
+      if (rows[i].length === 0) {
+        rows.splice(i, 1);
+      }
+    }
+    let iterator = 0;
+    if (header == true) iterator = 1;
+    for (let i = iterator; i < rows.length; i++) {
+      let cols = rows[i].split(",");
+      let t = [];
+      for (let j = 0; j < cols.length; j++) {
+        t.push(parseFloat(cols[j]));
+      }
+      data_2d.push(t);
+    }
+    return data_2d;
+  }
+  //function to generate helper json file
+  gen_index_arr_json(data_arr) {
+    const fs = require("fs");
+    const psr = require("./pseudo-random");
+    let index_arr = psr.pseudo_random(0, data_arr.length - 1, data_arr.length);
+    let index_arr_json = JSON.stringify({ index_arr: index_arr });
+    try {
+      if (fs.existsSync("index_array.json")) {
+        return;
+      } else {
+        fs.writeFileSync("index_array.json", index_arr_json);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  //function to split data into test and train
+  split_data(data_arr, train_ratio) {
+    const fs = require("fs");
+    this.gen_index_arr_json(data_arr);
+    let r;
+    let index_arr = JSON.parse(fs.readFileSync("index_array.json")).index_arr;
+    if (train_ratio) {
+      r = train_ratio;
+    } else {
+      r = 0.75;
+    }
+    let tr_length = Math.ceil(r * data_arr.length);
+    let ts_length = data_arr.length - tr_length;
+    let train_data = [],
+      test_data = [];
+    if (ts_length === 0) {
+      test_data.push(data_arr[index_arr[index_arr.length - 1]]);
+    }
+    for (let i = 0; i < tr_length; i++) {
+      train_data.push(data_arr[index_arr[i]]);
+    }
+    for (let i = tr_length; i < data_arr.length; i++) {
+      test_data.push(data_arr[index_arr[i]]);
+    }
+    let data = {
+      train: train_data,
+      test: test_data
+    };
+    return data;
+  }
+  //wrapper like function over split_data() to split data into train_x,test_x,train_y,test_y
+  split_test_train(data_arr, train_ratio) {
+    let y = [],
+      ratio = 0.75;
+    for (let row of data_arr) {
+      y.push(row.pop());
+    }
+    if (train_ratio) ratio = train_ratio;
+    let split_x = this.split_data(data_arr, ratio);
+    let split_y = this.split_data(y, ratio);
+    let result = {
+      train_x: split_x.train,
+      test_x: split_x.test,
+      train_y: split_y.train,
+      test_y: split_y.test
+    };
+    return result;
   }
 }
 module.exports = GRNN;
