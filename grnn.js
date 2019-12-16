@@ -106,7 +106,7 @@ class GRNN {
   }
   find_optimal_sigma() {
     let sig_arr = [];
-    for (let sigm_a = 0; sigm_a <= 10; sigm_a += 0.001) {
+    for (let sigm_a = 0; sigm_a <= 20; sigm_a += 0.001) {
       sig_arr.push({
         sigma: sigm_a,
         mse: this.mse_opt(sigm_a)
@@ -121,12 +121,22 @@ class GRNN {
     let data_2d = [];
     let contents = fs.readFileSync(path, "utf8");
     let rows = contents.split("\n");
-    rows = rows.map(row => row.replace(/\r/g, ""));
     for (let i = 0; i < rows.length; i++) {
       if (rows[i].length === 0) {
         rows.splice(i, 1);
       }
     }
+    rows = rows.map(row => row.replace(/\r/g, ""));
+    for (let i = 0; i < rows.length; i++) {
+      let r = rows[i].split('"');
+      let k = r.map(x => x.replace(/,/g, ""));
+      k = k.map(x => x.replace(/ /g, ""));
+      k.forEach((x, i) => {
+        if (x == "") k.splice(i, 1);
+      });
+      rows[i] = [...k].toString();
+    }
+
     let iterator = 0;
     if (header == true) iterator = 1;
     for (let i = iterator; i < rows.length; i++) {
@@ -187,6 +197,7 @@ class GRNN {
   }
   //wrapper like function over split_data() to split data into train_x,test_x,train_y,test_y
   split_test_train(data_arr, train_ratio) {
+    const fs = require("fs");
     let y = [],
       ratio = 0.75;
     for (let row of data_arr) {
@@ -195,6 +206,7 @@ class GRNN {
     if (train_ratio) ratio = train_ratio;
     let split_x = this.split_data(data_arr, ratio);
     let split_y = this.split_data(y, ratio);
+    // fs.unlinkSync('index_array.json');
     let result = {
       train_x: split_x.train,
       test_x: split_x.test,
