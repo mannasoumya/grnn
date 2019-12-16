@@ -1,4 +1,5 @@
 # Simple General Regression Neural Network for NodeJS
+### (With an In-Built CSV Parser)
 [![npm version](https://badge.fury.io/js/grnn.svg)](https://www.npmjs.com/package/grnn)
 ## Description
 This is a NodeJS module to use <b>GRNN</b> to predict given a training data.
