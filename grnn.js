@@ -35,7 +35,7 @@ class GRNN {
     for (let i = 0; i < arr.length; i++) {
       ss = ss + arr[i] * arr[i];
     }
-    return arr.map(x => x / Math.sqrt(ss));
+    return arr.map((x) => x / Math.sqrt(ss));
   }
   //function to check normalization switch
   checkNormal(normalize, tr_ts_x) {
@@ -109,7 +109,7 @@ class GRNN {
     for (let sigm_a = 0; sigm_a <= 20; sigm_a += 0.001) {
       sig_arr.push({
         sigma: sigm_a,
-        mse: this.mse_opt(sigm_a)
+        mse: this.mse_opt(sigm_a),
       });
     }
     sig_arr.sort((a, b) => a.mse - b.mse);
@@ -126,15 +126,17 @@ class GRNN {
         rows.splice(i, 1);
       }
     }
-    rows = rows.map(row => row.replace(/\r/g, ""));
+    rows = rows.map((row) => row.replace(/\r/g, ""));
     for (let i = 0; i < rows.length; i++) {
       let r = rows[i].split('"');
-      let k = r.map(x => x.replace(/,/g, ""));
-      k = k.map(x => x.replace(/ /g, ""));
-      k.forEach((x, i) => {
-        if (x == "") k.splice(i, 1);
-      });
-      rows[i] = [...k].toString();
+      if (r.length !== 1) {
+        let k = r.map((x) => x.replace(/,/g, ""));
+        k = k.map((x) => x.replace(/ /g, ""));
+        k.forEach((x, i) => {
+          if (x == "") k.splice(i, 1);
+        });
+        rows[i] = [...k].toString();
+      }
     }
 
     let iterator = 0;
@@ -191,7 +193,7 @@ class GRNN {
     }
     let data = {
       train: train_data,
-      test: test_data
+      test: test_data,
     };
     return data;
   }
@@ -211,7 +213,7 @@ class GRNN {
       train_x: split_x.train,
       test_x: split_x.test,
       train_y: split_y.train,
-      test_y: split_y.test
+      test_y: split_y.test,
     };
     return result;
   }
